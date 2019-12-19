@@ -39,7 +39,8 @@ enum SeverityLevel
 	LOG_WARNING,	/**< Something weird happened, nothing special but it's good to know. */
 	LOG_INFO,		/**< Useful information for users/developers to help debug and figure stuff out. */
 	LOG_DEBUG,		/**< Purely test stuff to help developers implement, not really relevant to users. */
-	LOG_VERBOSE     /**< Extra details that even developers won't really need 90% of the time. */
+	LOG_VERBOSE,     /**< Extra details that even developers won't really need 90% of the time. */
+	LOG_STUFF
 };
 
 /**
@@ -106,12 +107,12 @@ inline std::string& Logger::logFile()
 
 inline std::string Logger::toString(SeverityLevel level)
 {
-	static const char* const buffer[] = {"FATAL", "ERROR", "WARN", "INFO", "DEBUG", "VERB"};
+  static const char* const buffer[] = {"FATAL", "ERROR", "WARN", "INFO", "DEBUG", "VERB", "STUF"};
 	return buffer[level];
 }
 
 #define Log(level) \
-	if (level > Logger::reportingLevel()) ; \
+	if (level > Logger::reportingLevel() && level < LOG_STUFF) ; \
 	else Logger().get(level)
 
 }

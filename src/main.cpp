@@ -23,6 +23,8 @@
 #include "Engine/Game.h"
 #include "Engine/Options.h"
 #include "Menu/StartState.h"
+#include <iostream>
+
 
 /** @mainpage
  * @author OpenXcom Developers
@@ -122,6 +124,8 @@ int main(int argc, char *argv[])
 
 	// Comment this for faster exit.
 	delete game;
+	
+	std::cout << "Hello Commander" << std::endl;
 	return EXIT_SUCCESS;
 }
 

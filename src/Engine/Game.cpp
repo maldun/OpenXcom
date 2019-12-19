@@ -72,7 +72,7 @@ Game::Game(const std::string &title) : _screen(0), _cursor(0), _lang(0), _save(0
 	}
 	else
 	{
-		initAudio();
+	  initAudio();
 	}
 
 	// trap the mouse inside the window
@@ -147,6 +147,10 @@ void Game::run()
 	bool startupEvent = Options::allowResize;
 	while (!_quit)
 	{
+	  
+	        Log(LOG_STUFF) << "Minimal Game Run";
+	  
+	        //  quit();
 		Uint32 timeFrameStarted = SDL_GetTicks();
 		// Clean up states
 		while (!_deleted.empty())

@@ -684,7 +684,8 @@ void NewBattleState::cbxTerrainChange(Action *)
 /**
  * Initializes Minimal Battle State
  */
-MinBattleState::MinBattleState() : _craft(0), _entryMission(ERROR_STATE), _entryCraft(ERROR_STATE)
+MinBattleState::MinBattleState() : _craft(0), _entryMission(ERROR_STATE), _entryCraft(ERROR_STATE), _entryDarkness(ERROR_STATE), _entryTerrain(ERROR_STATE), _entryDifficulty(ERROR_STATE),
+    _entryAlienRace(ERROR_STATE), _entryAlienTech(ERROR_STATE), _entryDepth(ERROR_STATE)
 {
 
 }
@@ -703,7 +704,15 @@ MinBattleState::~MinBattleState()
  */
 void MinBattleState::loadCFG(const std::string &filename)
 {
-  std::string s = Options::getMasterUserFolder() + filename + ".cfg";
+    std::string s = Options::getMasterUserFolder() + filename + ".cfg";
+    if (!CrossPlatform::fileExists(s))
+    {
+      
+    }
+    else
+    {
+	
+    }
 }
 
 }

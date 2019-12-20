@@ -145,10 +145,9 @@ void Game::run()
 	static const ApplicationState stateRun[4] = { SLOWED, PAUSED, PAUSED, PAUSED };
 	// this will avoid processing SDL's resize event on startup, workaround for the heap allocation error it causes.
 	bool startupEvent = Options::allowResize;
+	Log(LOG_STUFF) << "Minimal Game Run";
 	while (!_quit)
 	{
-	  
-	        Log(LOG_STUFF) << "Minimal Game Run";
 	  
 	        //  quit();
 		Uint32 timeFrameStarted = SDL_GetTicks();

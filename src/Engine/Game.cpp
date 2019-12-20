@@ -149,7 +149,7 @@ void Game::run()
 	while (!_quit)
 	{
 	        
-	        // quit();
+	        quit();
 		Uint32 timeFrameStarted = SDL_GetTicks();
 		// Clean up states
 		while (!_deleted.empty())

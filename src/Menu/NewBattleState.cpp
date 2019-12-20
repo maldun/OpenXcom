@@ -684,8 +684,9 @@ void NewBattleState::cbxTerrainChange(Action *)
 /**
  * Initializes Minimal Battle State
  */
-MinBattleState::MinBattleState() : _craft(0)
+MinBattleState::MinBattleState() : _craft(0), _entryMission(ERROR_STATE), _entryCraft(ERROR_STATE)
 {
+
 }
 
 /**
@@ -700,9 +701,9 @@ MinBattleState::~MinBattleState()
  * Loads new battle data from a YAML file.
  * @param filename YAML filename.
  */
-void MinBattleState::load(const std::string &filename)
+void MinBattleState::loadCFG(const std::string &filename)
 {
-
+  std::string s = Options::getMasterUserFolder() + filename + ".cfg";
 }
 
 }

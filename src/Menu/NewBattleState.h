@@ -32,6 +32,8 @@ class Slider;
 class Frame;
 class Craft;
 
+const size_t ERROR_STATE = 10;
+	
 /**
  * New Battle that displays a list
  * of options to configure a new
@@ -81,7 +83,7 @@ public:
 class MinBattleState : public State
 {
 private:
-	size_t _entryMission, _entryCraft, _entryDarkness, _entryTerrain, _entryDifficulty, _entryAlienRace, _entryAlienTech, _entryDepth;
+	size_t _entryMission, _entryCraft, _entryDarkness, _entryTerrain, _entryDifficulty, _entryAlienRace, _entryAlienTech, _entryDepth, _errorCode;
 	Craft *_craft;
         
 public:
@@ -90,7 +92,7 @@ public:
 	/// Cleans up the New Battle state.
 	~MinBattleState();
 	/// Loads New Battle settings.
-	void load(const std::string &filename = "battle");
+	void loadCFG(const std::string &filename = "battle");
 	
 };
 

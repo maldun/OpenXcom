@@ -23,6 +23,7 @@
 
 //////////
 #include "../Engine/Logger.h"
+#include <iostream>
 /////////
 
 namespace OpenXcom
@@ -36,7 +37,7 @@ class Slider;
 class Frame;
 class Craft;
 
-const size_t ERROR_STATE = 10;
+const size_t ERROR_STATE = 666;
 	
 /**
  * New Battle that displays a list

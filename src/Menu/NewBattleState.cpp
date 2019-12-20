@@ -267,6 +267,9 @@ void NewBattleState::load(const std::string &filename)
 	{
 		try
 		{
+		        MinBattleState *ms = new MinBattleState(); // blu
+			ms->loadCFG(s);
+		        ms->writeEntries2Log(LOG_STUFF);
 			YAML::Node doc = YAML::LoadFile(s);
 			_cbxMission->setSelected(std::min(doc["mission"].as<size_t>(0), _missionTypes.size() - 1));
 			cbxMissionChange(0);
@@ -704,7 +707,8 @@ MinBattleState::~MinBattleState()
  */
 void MinBattleState::loadCFG(const std::string &filename)
 {
-    std::string s = Options::getMasterUserFolder() + filename + ".cfg";
+    //std::string s = Options::getMasterUserFolder() + filename + ".cfg";
+    std::string s = filename;
     if (!CrossPlatform::fileExists(s))
     {
       
@@ -714,13 +718,13 @@ void MinBattleState::loadCFG(const std::string &filename)
 	try
 	{
 	    YAML::Node doc = YAML::LoadFile(s);
-	    _entryMission = std::max(doc["mission"].as<size_t>(0), ERROR_STATE);
-	    _entryCraft = std::max(doc["craft"].as<size_t>(0), ERROR_STATE);
-	    _entryDarkness = std::max(doc["darkness"].as<size_t>(0), ERROR_STATE);
-	    _entryTerrain = std::max(doc["terrain"].as<size_t>(0), ERROR_STATE);
-	    _entryAlienRace = std::max(doc["alienRace"].as<size_t>(0), ERROR_STATE);
-	    _entryAlienTech = std::max(doc["alienTech"].as<size_t>(0), ERROR_STATE);
-	    _entryDifficulty = std::max(doc["difficulty"].as<size_t>(0), ERROR_STATE);
+	    _entryMission = std::min(doc["mission"].as<size_t>(0), ERROR_STATE);
+	    _entryCraft = std::min(doc["craft"].as<size_t>(0), ERROR_STATE);
+	    _entryDarkness = std::min(doc["darkness"].as<size_t>(0), ERROR_STATE);
+	    _entryTerrain = std::min(doc["terrain"].as<size_t>(0), ERROR_STATE);
+	    _entryAlienRace = std::min(doc["alienRace"].as<size_t>(0), ERROR_STATE);
+	    _entryAlienTech = std::min(doc["alienTech"].as<size_t>(0), ERROR_STATE);
+	    _entryDifficulty = std::min(doc["difficulty"].as<size_t>(0), ERROR_STATE);
 		
 	}
 	catch (YAML::Exception &e)
@@ -738,8 +742,9 @@ void MinBattleState::writeEntries2Log(SeverityLevel level)
     Log(level) << "Mission: " << _entryMission;
     Log(level) << "Craft: " << _entryCraft;
     Log(level) << "Darkness: " << _entryDarkness;
-    Log(level) << _entryTerrain;
-    //Log(level) << _entry;
+    Log(level) << "Terrain: " << _entryTerrain;
+    Log(level) << "ERROR_STATE: " << ERROR_STATE;
+    
     
 }
 

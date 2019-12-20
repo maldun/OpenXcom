@@ -47,7 +47,10 @@ void GoToNewBattleState::init()
 {
 	Screen::updateScale(Options::geoscapeScale, Options::baseXGeoscape, Options::baseYGeoscape, true);
 	_game->getScreen()->resetDisplay(false);
-	_game->pushState(new NewBattleState);
+	NewBattleState *nbs = new NewBattleState;
+	nbs->load();
+	nbs->toggleScreen();
+	_game->pushState(nbs);
 }
 /**
  * Initializes all the elements in the Main Menu window.

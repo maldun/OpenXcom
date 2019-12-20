@@ -464,6 +464,11 @@ void NewBattleState::initSave()
  */
 void NewBattleState::btnOkClick(Action *)
 {
+    startBattle();
+}
+
+void NewBattleState::startBattle()
+{
 	save();
 	if (_missionTypes[_cbxMission->getSelected()] != "STR_BASE_DEFENSE" && _craft->getNumSoldiers() == 0 && _craft->getNumVehicles() == 0)
 	{

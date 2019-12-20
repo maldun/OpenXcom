@@ -83,6 +83,8 @@ public:
 	void cbxCraftChange(Action *action);
 	/// Updates the depth slider accordingly when terrain selection changes.
 	void cbxTerrainChange(Action *action);
+	// Starts the Battle
+	void startBattle();
 };
 
 class MinBattleState : public State

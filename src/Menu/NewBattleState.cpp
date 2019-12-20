@@ -641,8 +641,10 @@ void NewBattleState::startBattleDirect()
 	bgen.run();
 
 	//_game->popState();
-	_game->popState();
-	_game->pushState(new BriefingState(_craft, base));
+	// _game->popState();
+	BriefingState *brs = new BriefingState(_craft, base);
+	brs->startBattle();
+	//_game->pushState(brs);
 	_craft = 0;
 }
 

@@ -43,6 +43,12 @@ void GoToMainMenuState::init()
 	_game->setState(new MainMenuState);
 }
 
+void GoToNewBattleState::init()
+{
+	Screen::updateScale(Options::geoscapeScale, Options::baseXGeoscape, Options::baseYGeoscape, true);
+	_game->getScreen()->resetDisplay(false);
+	_game->pushState(new NewBattleState);
+}
 /**
  * Initializes all the elements in the Main Menu window.
  * @param game Pointer to the core game.

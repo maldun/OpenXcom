@@ -267,9 +267,7 @@ void NewBattleState::load(const std::string &filename)
 	{
 		try
 		{
-		        MinBattleState *ms = new MinBattleState(); // blu
-			ms->loadCFG(s);
-		        ms->writeEntries2Log(LOG_STUFF);
+
 			YAML::Node doc = YAML::LoadFile(s);
 			_cbxMission->setSelected(std::min(doc["mission"].as<size_t>(0), _missionTypes.size() - 1));
 			cbxMissionChange(0);

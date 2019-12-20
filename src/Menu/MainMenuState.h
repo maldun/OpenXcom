@@ -33,6 +33,12 @@ public:
 	void init();
 };
 
+class GoToNewBattleState : public State
+{
+public:
+	void init();
+};
+  
 /**
  * Main Menu window displayed when first
  * starting the game.

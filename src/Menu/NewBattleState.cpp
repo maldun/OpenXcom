@@ -711,8 +711,36 @@ void MinBattleState::loadCFG(const std::string &filename)
     }
     else
     {
+	try
+	{
+	    YAML::Node doc = YAML::LoadFile(s);
+	    _entryMission = std::max(doc["mission"].as<size_t>(0), ERROR_STATE);
+	    _entryCraft = std::max(doc["craft"].as<size_t>(0), ERROR_STATE);
+	    _entryDarkness = std::max(doc["darkness"].as<size_t>(0), ERROR_STATE);
+	    _entryTerrain = std::max(doc["terrain"].as<size_t>(0), ERROR_STATE);
+	    _entryAlienRace = std::max(doc["alienRace"].as<size_t>(0), ERROR_STATE);
+	    _entryAlienTech = std::max(doc["alienTech"].as<size_t>(0), ERROR_STATE);
+	    _entryDifficulty = std::max(doc["difficulty"].as<size_t>(0), ERROR_STATE);
+		
+	}
+	catch (YAML::Exception &e)
+	{
+			Log(LOG_WARNING) << e.what();
+	}
+	
 	
     }
+}
+
+void MinBattleState::writeEntries2Log(SeverityLevel level)
+{
+    Log(level) << "Battle State Entries";
+    Log(level) << "Mission: " << _entryMission;
+    Log(level) << "Craft: " << _entryCraft;
+    Log(level) << "Darkness: " << _entryDarkness;
+    Log(level) << _entryTerrain;
+    //Log(level) << _entry;
+    
 }
 
 }

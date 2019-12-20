@@ -21,6 +21,10 @@
 #include <vector>
 #include <string>
 
+//////////
+#include "../Engine/Logger.h"
+/////////
+
 namespace OpenXcom
 {
 
@@ -83,7 +87,7 @@ public:
 class MinBattleState : public State
 {
 private:
-	size_t _entryMission, _entryCraft, _entryDarkness, _entryTerrain, _entryDifficulty, _entryAlienRace, _entryAlienTech, _entryDepth, _errorCode;
+	size_t _entryMission, _entryCraft, _entryDarkness, _entryTerrain, _entryDifficulty, _entryAlienRace, _entryAlienTech, _entryDepth;
 	Craft *_craft;
         
 public:
@@ -93,6 +97,8 @@ public:
 	~MinBattleState();
 	/// Loads New Battle settings.
 	void loadCFG(const std::string &filename = "battle");
+	/// Writes entries to log
+	void writeEntries2Log(SeverityLevel level = LOG_STUFF);
 	
 };
 

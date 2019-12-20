@@ -181,6 +181,11 @@ void BriefingState::init()
  */
 void BriefingState::btnOkClick(Action *)
 {
+        startBattle();
+}
+  
+void BriefingState::startBattle()
+{
 	_game->popState();
 	Options::baseXResolution = Options::baseXBattlescape;
 	Options::baseYResolution = Options::baseYBattlescape;

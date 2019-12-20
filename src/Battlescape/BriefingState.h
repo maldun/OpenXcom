@@ -48,6 +48,8 @@ public:
 	void init();
 	/// Handler for clicking the Ok button.
 	void btnOkClick(Action *action);
+  	/// Start Battle.
+	void startBattle();
 };
 
 }

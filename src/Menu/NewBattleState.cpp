@@ -465,6 +465,7 @@ void NewBattleState::initSave()
 void NewBattleState::btnOkClick(Action *)
 {
     startBattle();
+    //startBattleDirect();
 }
 
 void NewBattleState::startBattle()
@@ -553,6 +554,98 @@ void NewBattleState::startBattle()
 	_game->pushState(new BriefingState(_craft, base));
 	_craft = 0;
 }
+
+void NewBattleState::startBattleDirect()
+{
+        MinBattleState *mbs = new MinBattleState();
+	mbs->loadCFG();
+	mbs->writeEntries2Log(LOG_STUFF);
+	   
+	save();
+	if (_missionTypes[mbs->_entryMission] != "STR_BASE_DEFENSE" && _craft->getNumSoldiers() == 0 && _craft->getNumVehicles() == 0)
+	{
+		return;
+	}
+	
+	SavedBattleGame *bgame = new SavedBattleGame();
+	_game->getSavedGame()->setBattleGame(bgame);
+	bgame->setMissionType(_missionTypes[mbs->_entryMission]);
+	BattlescapeGenerator bgen = BattlescapeGenerator(_game);
+	Base *base = 0;
+
+	bgen.setTerrain(_game->getMod()->getTerrain(_terrainTypes[mbs->_entryTerrain]));
+
+	// base defense
+	if (_missionTypes[mbs->_entryMission] == "STR_BASE_DEFENSE")
+	{
+		base = _craft->getBase();
+		bgen.setBase(base);
+		_craft = 0;
+	}
+	// alien base
+	else if (_game->getMod()->getDeployment(bgame->getMissionType())->isAlienBase())
+	{
+		AlienBase *b = new AlienBase(_game->getMod()->getDeployment(bgame->getMissionType()));
+		b->setId(1);
+		b->setAlienRace(_alienRaces[mbs->_entryAlienRace]);
+		_craft->setDestination(b);
+		bgen.setAlienBase(b);
+		_game->getSavedGame()->getAlienBases()->push_back(b);
+	}
+	// ufo assault
+	else if (_craft && _game->getMod()->getUfo(_missionTypes[mbs->_entryMission]))
+	{
+		Ufo *u = new Ufo(_game->getMod()->getUfo(_missionTypes[mbs->_entryMission]));
+		u->setId(1);
+		_craft->setDestination(u);
+		bgen.setUfo(u);
+		// either ground assault or ufo crash
+		if (RNG::generate(0,1) == 1)
+		{
+			u->setStatus(Ufo::LANDED);
+			bgame->setMissionType("STR_UFO_GROUND_ASSAULT");
+		}
+		else
+		{
+			u->setStatus(Ufo::CRASHED);
+			bgame->setMissionType("STR_UFO_CRASH_RECOVERY");
+		}
+		_game->getSavedGame()->getUfos()->push_back(u);
+	}
+	// mission site
+	else
+	{
+		const AlienDeployment *deployment = _game->getMod()->getDeployment(bgame->getMissionType());
+		const RuleAlienMission *mission = _game->getMod()->getAlienMission(_game->getMod()->getAlienMissionList().front()); // doesn't matter
+		MissionSite *m = new MissionSite(mission, deployment);
+		m->setId(1);
+		m->setAlienRace(_alienRaces[mbs->_entryMission]);
+		_craft->setDestination(m);
+		bgen.setMissionSite(m);
+		_game->getSavedGame()->getMissionSites()->push_back(m);
+	}
+
+	if (_craft)
+	{
+		_craft->setSpeed(0);
+		bgen.setCraft(_craft);
+	}
+
+	_game->getSavedGame()->setDifficulty((GameDifficulty)mbs->_entryDifficulty);
+
+	bgen.setWorldShade(mbs->_entryDarkness);
+	bgen.setAlienRace(_alienRaces[mbs->_entryAlienRace]);
+	bgen.setAlienItemlevel(mbs->_entryAlienTech);
+	bgame->setDepth(0);
+
+	bgen.run();
+
+	_game->popState();
+	_game->popState();
+	_game->pushState(new BriefingState(_craft, base));
+	_craft = 0;
+}
+
 
 /**
  * Returns to the previous screen.
@@ -711,8 +804,8 @@ MinBattleState::~MinBattleState()
  */
 void MinBattleState::loadCFG(const std::string &filename)
 {
-    //std::string s = Options::getMasterUserFolder() + filename + ".cfg";
-    std::string s = filename;
+    std::string s = Options::getMasterUserFolder() + filename + ".cfg";
+    // std::string s = filename;
     if (!CrossPlatform::fileExists(s))
     {
       

@@ -49,7 +49,7 @@ void GoToNewBattleState::init()
 	_game->getScreen()->resetDisplay(false);
 	NewBattleState *nbs = new NewBattleState;
 	nbs->load();
-	nbs->toggleScreen();
+	// nbs->toggleScreen();
 	_game->pushState(nbs);
 }
 /**

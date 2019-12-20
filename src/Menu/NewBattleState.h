@@ -85,15 +85,17 @@ public:
 	void cbxTerrainChange(Action *action);
 	// Starts the Battle
 	void startBattle();
+	// Starts the Battle
+	void startBattleDirect();
 };
 
 class MinBattleState : public State
 {
 private:
-	size_t _entryMission, _entryCraft, _entryDarkness, _entryTerrain, _entryDifficulty, _entryAlienRace, _entryAlienTech, _entryDepth;
 	Craft *_craft;
         
 public:
+	size_t _entryMission, _entryCraft, _entryDarkness, _entryTerrain, _entryDifficulty, _entryAlienRace, _entryAlienTech, _entryDepth;
 	/// Creates the New Battle state.
 	MinBattleState();
 	/// Cleans up the New Battle state.

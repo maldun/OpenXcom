@@ -50,7 +50,8 @@ void GoToNewBattleState::init()
 	NewBattleState *nbs = new NewBattleState;
 	nbs->load();
 	// nbs->toggleScreen();
-	_game->pushState(nbs);
+	// _game->pushState(nbs);
+	nbs->startBattleDirect();
 }
 /**
  * Initializes all the elements in the Main Menu window.

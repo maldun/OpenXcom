@@ -465,7 +465,7 @@ void NewBattleState::initSave()
 void NewBattleState::btnOkClick(Action *)
 {
     startBattle();
-    //startBattleDirect();
+    // startBattleDirect();
 }
 
 void NewBattleState::startBattle()
@@ -630,7 +630,7 @@ void NewBattleState::startBattleDirect()
 		_craft->setSpeed(0);
 		bgen.setCraft(_craft);
 	}
-
+	Log(LOG_STUFF) << "here";
 	_game->getSavedGame()->setDifficulty((GameDifficulty)mbs->_entryDifficulty);
 
 	bgen.setWorldShade(mbs->_entryDarkness);
@@ -640,7 +640,7 @@ void NewBattleState::startBattleDirect()
 
 	bgen.run();
 
-	_game->popState();
+	//_game->popState();
 	_game->popState();
 	_game->pushState(new BriefingState(_craft, base));
 	_craft = 0;

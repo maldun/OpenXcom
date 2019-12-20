@@ -78,4 +78,21 @@ public:
 	void cbxTerrainChange(Action *action);
 };
 
+class MinBattleState : public State
+{
+private:
+	size_t _entryMission, _entryCraft, _entryDarkness, _entryTerrain, _entryDifficulty, _entryAlienRace, _entryAlienTech, _entryDepth;
+	Craft *_craft;
+        
+public:
+	/// Creates the New Battle state.
+	MinBattleState();
+	/// Cleans up the New Battle state.
+	~MinBattleState();
+	/// Loads New Battle settings.
+	void load(const std::string &filename = "battle");
+	
+};
+
+  
 }

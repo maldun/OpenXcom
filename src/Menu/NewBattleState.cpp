@@ -678,4 +678,31 @@ void NewBattleState::cbxTerrainChange(Action *)
 	_slrDepth->setValue(minDepth);
 }
 
+////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////
+
+/**
+ * Initializes Minimal Battle State
+ */
+MinBattleState::MinBattleState() : _craft(0)
+{
+}
+
+/**
+ * 
+ */
+MinBattleState::~MinBattleState()
+{
+
+}
+
+/**
+ * Loads new battle data from a YAML file.
+ * @param filename YAML filename.
+ */
+void MinBattleState::load(const std::string &filename)
+{
+
+}
+
 }

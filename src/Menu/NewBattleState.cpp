@@ -558,6 +558,7 @@ void NewBattleState::btnCancelClick(Action *)
 	save();
 	_game->setSavedGame(0);
 	_game->popState();
+	_game->quit();
 }
 
 /**
